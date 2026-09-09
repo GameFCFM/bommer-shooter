@@ -29,6 +29,7 @@ var is_attack_started: bool = false
 func _ready() -> void:
 	await get_tree().physics_frame
 	player_requested.emit(self)
+	animation_player.play("idle")
 	
 	
 func _physics_process(delta: float) -> void:
@@ -39,6 +40,8 @@ func _physics_process(delta: float) -> void:
 				if is_player_in_range() == true:
 					current_state = State.COMBAT
 		State.COMBAT:
+			if animation_player.current_animation == 'idle':
+				animation_player.play("walk")
 			if player:
 				look_at_target(player)
 			velocity = global_position.direction_to(nav_agent.get_next_path_position()) * 200 * delta

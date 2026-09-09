@@ -72,4 +72,4 @@ polygon = PackedVector2Array(-0.5, 0, -0.5, 1, -0.5, 2, 1.9661121, 1.972295, 2, 
 depth = 3.5
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=2146446926]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 0.5)
