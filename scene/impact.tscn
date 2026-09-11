@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dno72hdvohili"]
 
 [ext_resource type="Script" uid="uid://dv8a7201kqdcl" path="res://script/impact_mesh.gd" id="1_vi6ll"]
-[ext_resource type="AudioStream" uid="uid://cvbbjns8y6qyr" path="res://asset/audio/hit01.sfxr" id="2_hs2jm"]
+[ext_resource type="AudioStream" uid="uid://cyl2g7873jnr3" path="res://asset/audio/impact_a.sfxr" id="2_hs2jm"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_0yc80"]
 radius = 0.1

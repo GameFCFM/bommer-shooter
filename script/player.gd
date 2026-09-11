@@ -8,15 +8,26 @@ const JUMP_VELOCITY = 4.5
 var last_mouse_position: Vector2i
 var mouse_sens: float = 0.01
 @export_range(0, 100, 1) var health: float = 50
+@export var max_health: float = 100
 @export var bullet_damage: float = 5
+@export var ammo: int = 20
+@export var cartridges: int = 5
+@export var cartridge_size: int = 20
+@export var max_ammo: int = 100
 
 @onready var fpp_camera: Camera3D = $FPPCamera
+@onready var shot_sound: AudioStreamPlayer3D = $ShotSound
+@onready var ammo_label: RichTextLabel = %AmmoLabel
+@onready var health_label: Label = %HealthLabel
+@onready var health_bar: ProgressBar = %HealthBar
+
 
 
 
 func _ready() -> void:
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CAPTURED)
-	
+	update_ammo()
+	update_health_label()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -26,6 +37,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("attack"):
 		attack()
 		#screen_shake()
+	if event.is_action_pressed("reload"):
+		reload()
 	
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -51,42 +64,84 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 func attack() -> void:
-		var space_state := get_world_3d().direct_space_state
-		var cam:= get_viewport().get_camera_3d()
-		var mouse_position := get_viewport().get_mouse_position()
-		var ray_origin: Vector3 = cam.project_ray_origin(mouse_position)
-		var ray_direction: Vector3 = ray_origin + cam.project_ray_normal(mouse_position) *100
+	if ammo <=0:
+		return #TODO: Botar função e som de recarga de arma vazia
+	
+	ammo -= 1
+	
+	var space_state := get_world_3d().direct_space_state
+	var cam:= get_viewport().get_camera_3d()
+	var mouse_position := get_viewport().get_mouse_position()
+	var ray_origin: Vector3 = cam.project_ray_origin(mouse_position)
+	var ray_direction: Vector3 = ray_origin + cam.project_ray_normal(mouse_position) *100
+	
+	var query := PhysicsRayQueryParameters3D.create(ray_origin, ray_direction, collision_mask)
+	query.collide_with_areas = true
+	var result:= space_state.intersect_ray(query)
+	#print(result)
+	
+	if not result.is_empty():
+		var impact_mesh := IMPACT_MESH.instantiate()
+		add_sibling(impact_mesh)
+		impact_mesh.global_position = result["position"]
 		
-		var query := PhysicsRayQueryParameters3D.create(ray_origin, ray_direction, collision_mask)
-		query.collide_with_areas = true
-		var result:= space_state.intersect_ray(query)
-		#print(result)
-		
-		if not result.is_empty():
-			var impact_mesh := IMPACT_MESH.instantiate()
-			add_sibling(impact_mesh)
-			impact_mesh.global_position = result["position"]
+		if result["collider"] is RigidBody3D:
+			var obj: RigidBody3D = result["collider"]
+			obj.apply_force(-result["normal"] * 1000, result["position"])
 			
-			if result["collider"] is RigidBody3D:
-				var obj: RigidBody3D = result["collider"]
-				obj.apply_force(-result["normal"] * 1000, result["position"])
-				
-			var collider: Node3D = result["collider"]
-			if collider.has_method("take_damage"):
-				collider.take_damage(bullet_damage)
-			else:
-				if collider.owner.has_method("take_damage"):
-					collider.owner.take_damage(bullet_damage)
+		var collider: Node3D = result["collider"]
+		if collider.has_method("take_damage"):
+			collider.take_damage(bullet_damage)
+		else:
+			if collider.owner.has_method("take_damage"):
+				collider.owner.take_damage(bullet_damage)
+	shot_sound.play()
+	update_ammo()
 
 func screen_shake() -> void:
 	var tween: Tween = create_tween()
 	tween.tween_property(fpp_camera, "v_offset", 0.0, 0.1).from(0.1)
 	
 func take_damage(amount: float) -> void:
-	print("HP: ", health)
+	#print("HP: ", health)
 	health -= amount
+	update_health_label()
 	if health <= 0:
 		die()
 		
+func update_health_label() -> void:
+	health_label.text = "HP: "+str(health)
+	health_bar.max_value = max_health
+	health_bar.value = health
+	
 func die() -> void:
 	get_tree().quit()
+	
+	
+	
+func update_ammo() -> void:
+	print(ammo, " / ", cartridges * cartridge_size)
+	ammo_label.text = str(ammo) + " / " + str(cartridges * cartridge_size)
+	if cartridges <= 0:
+		ammo_label.text += "[shake][color=red][b] Encontre munição[/b][/color][/shake]" 
+
+	elif ammo == 0:
+		ammo_label.text += "[shake] Aperte R para recarregar [/shake]"
+		
+func reload () -> void:
+	if cartridges <= 0 or ammo>= cartridge_size:
+		return
+	
+	cartridges -= 1 
+	ammo = cartridge_size
+	update_ammo()
+	
+
+
+func get_message(message: Message) -> void:
+	if "ammo" in message.content:
+		cartridges += message.content["ammo"]
+		update_ammo()
+	if "health" in message.content:
+		health+= message.content["health"]
+		update_health_label()

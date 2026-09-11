@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://beb4oxo5ii43c"]
+
+[ext_resource type="Texture2D" uid="uid://dxflv75nn07j" path="res://asset/health_icon.png" id="1_lp2q2"]
+[ext_resource type="Script" uid="uid://kdq8rxpr77ro" path="res://script/collectable.gd" id="2_66yev"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0yc80"]
+
+[node name="Health" type="Area3D" unique_id=1335576067]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=371494670]
+shape = SubResource("SphereShape3D_0yc80")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1502610749]
+transform = Transform3D(2.04, 0, 0, 0, 2.04, 0, 0, 0, 2.04, 0, 0, 0)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("1_lp2q2")
+
+[node name="Collectable" type="Node" parent="." unique_id=228637187]
+script = ExtResource("2_66yev")
+message = {
+"health": 25
+}
+metadata/_custom_type_script = "uid://kdq8rxpr77ro"
+
+[connection signal="body_entered" from="." to="Collectable" method="_on_collected"]

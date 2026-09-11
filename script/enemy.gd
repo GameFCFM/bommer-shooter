@@ -40,6 +40,8 @@ func _physics_process(delta: float) -> void:
 				if is_player_in_range() == true:
 					current_state = State.COMBAT
 		State.COMBAT:
+			if animation_player.current_animation == 'attack':
+				animation_player.play("walk")
 			if animation_player.current_animation == 'idle':
 				animation_player.play("walk")
 			if player:
@@ -59,8 +61,9 @@ func _physics_process(delta: float) -> void:
 				is_attack_started = true
 				attack_sound.play()
 				
-				var tween: Tween = create_tween()
-				tween.tween_property(sprite, "scale", Vector3.ONE * 0.51, 0.2).from(Vector3.ONE * 1.5)
+				animation_player.play("attack")
+				#var tween: Tween = create_tween()
+				#tween.tween_property(sprite, "scale", Vector3.ONE * 0.51, 0.2).from(Vector3.ONE * 1.5)
 				
 			if attack_elapsed >= 1.0:
 				current_state = State.COMBAT
