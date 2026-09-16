@@ -114,10 +114,10 @@ func update_health_label() -> void:
 	health_bar.max_value = max_health
 	health_bar.value = health
 	
+	
 func die() -> void:
-	get_tree().quit()
-	
-	
+	#TODO: Criar estado de morte do player
+	EventBus.player_died.emit()
 	
 func update_ammo() -> void:
 	print(ammo, " / ", cartridges * cartridge_size)

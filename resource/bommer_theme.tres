@@ -1,0 +1,55 @@
+[gd_resource type="Theme" format=3 uid="uid://dht1gvo864c8h"]
+
+[ext_resource type="FontFile" uid="uid://jlh1vss3gj33" path="res://asset/Mystery_Quest,Unkempt/Unkempt/Unkempt-Bold.ttf" id="1_as6qe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_as6qe"]
+bg_color = Color(0.73155993, 0.48199606, 0.84046465, 0.99607843)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wdh2k"]
+content_margin_left = 7.0
+content_margin_top = 7.0
+content_margin_right = 7.0
+content_margin_bottom = 7.0
+bg_color = Color(0.73155993, 0.48199606, 0.84046465, 0.99607843)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fvgxu"]
+bg_color = Color(0.73155993, 0.48199606, 0.84046465, 0.99607843)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[resource]
+default_font = ExtResource("1_as6qe")
+default_font_size = 28
+Button/fonts/font = ExtResource("1_as6qe")
+Button/styles/hover = SubResource("StyleBoxFlat_as6qe")
+Button/styles/normal = SubResource("StyleBoxFlat_wdh2k")
+Button/styles/pressed = SubResource("StyleBoxFlat_fvgxu")
+RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
+RichTextLabel/fonts/bold_font = ExtResource("1_as6qe")

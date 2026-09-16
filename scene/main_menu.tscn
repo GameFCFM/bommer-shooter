@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://c3kdftdytdn36"]
+
+[ext_resource type="PackedScene" uid="uid://bqv0q7jeoyi1d" path="res://scene/main_menu_background.tscn" id="1_3er1b"]
+[ext_resource type="Theme" uid="uid://dht1gvo864c8h" path="res://resource/bommer_theme.tres" id="1_hxu56"]
+[ext_resource type="Script" uid="uid://46bsgbgij7us" path="res://script/main_menu.gd" id="2_2fwvj"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_0yc80"]
+viewport_path = NodePath("SubViewport")
+
+[node name="MainMenu" type="Control" unique_id=573674837]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_hxu56")
+script = ExtResource("2_2fwvj")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1249839524]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_0yc80")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=853817694]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.5
+offset_top = -46.5
+offset_right = 83.5
+offset_bottom = 46.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="VBoxContainer" unique_id=1765770164]
+layout_mode = 2
+
+[node name="GameTitle" type="RichTextLabel" parent="VBoxContainer/Control" unique_id=411179903]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -132.0
+offset_top = -34.0
+offset_right = 132.0
+grow_horizontal = 2
+grow_vertical = 0
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -108)
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "Cozy Boomer Shooter
+"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Play" type="Button" parent="VBoxContainer" unique_id=2051770324]
+layout_mode = 2
+text = "Jogar"
+
+[node name="Fullscreen" type="Button" parent="VBoxContainer" unique_id=1772928065]
+layout_mode = 2
+text = "Tela Cheia"
+
+[node name="Autor" type="RichTextLabel" parent="." unique_id=1727009976]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -99.0
+offset_top = -40.0
+offset_right = 99.0
+grow_horizontal = 2
+grow_vertical = 0
+bbcode_enabled = true
+text = "Criado por Lucas Vasques"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1563585884]
+size = Vector2i(1280, 720)
+
+[node name="MainMenuBackground" parent="SubViewport" unique_id=1441899441 instance=ExtResource("1_3er1b")]
+
+[connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/Fullscreen" to="." method="_on_fullscreen_pressed"]

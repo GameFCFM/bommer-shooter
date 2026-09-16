@@ -3,6 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://bie3ku6i1fn1q" path="res://scene/player.tscn" id="1_1pjjk"]
 [ext_resource type="Material" uid="uid://dhmvvjxkhm5hi" path="res://resource/grid_dark.tres" id="2_lju75"]
 [ext_resource type="PackedScene" uid="uid://b3ks2q0mdbxtf" path="res://scene/balloon.tscn" id="3_cy3g0"]
+[ext_resource type="PackedScene" uid="uid://c405if4ygopwc" path="res://scene/enemy.tscn" id="4_lju75"]
+[ext_resource type="Script" uid="uid://heivlku125oi" path="res://script/game_master_component.gd" id="5_cy3g0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2kwhb"]
 sky_top_color = Color(0.39535925, 0.33932814, 0.9063459, 1)
@@ -17,6 +19,10 @@ sky_material = SubResource("ProceduralSkyMaterial_2kwhb")
 background_mode = 2
 sky = SubResource("Sky_pn2ac")
 glow_enabled = true
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_cy3g0"]
+vertices = PackedVector3Array(-99.5, 0.49999908, -0.5, -1.75, 0.49999908, -0.5, -1.5, 0.49999908, -1.5, 0.5, 0.49999908, -99.5, -99.5, 0.49999908, -99.5, 0.5, 0.49999908, -1.5, 17.5, 0.49999908, -1.5, 17.75, 0.49999908, -1, 23.25, 0.49999908, -3.5, 23.25, 0.49999908, -4.75, 24.5, 0.49999908, -5.25, 24.5, 0.49999908, -99.5, 25, 0.49999908, -5.25, 25.5, 0.49999908, -4.25, 99.5, 0.49999908, -4.25, 99.5, 0.49999908, -99.5, 23.5, 0.49999908, -3, 25, 0.49999908, -3, 17.75, 0.49999908, 19.75, 99.5, 0.49999908, 20, -1.5, 0.49999908, 7.25, 0.5, 0.49999908, 7.25, 0.5, 0.49999908, 0.75, -1.5, 0.49999908, 0.75, -1.75, 0.49999908, 8.5, -99.5, 0.49999908, 8.5, 5.75, 16.5, 8.75, 6, 16.5, -0.5, -0.75, 16.5, -0.5, -0.75, 16.5, 8.75, 7.5, 16.5, 9, 7.5, 16.5, 11, 16.5, 16.5, 11, 16.5, 16.5, -0.5, 6.25, 0.49999908, 7.25, 6.25, 0.49999908, 0.75, 8.25, 0.49999908, 7.25, 8.5, 0.49999908, 9.5, 15.5, 0.49999908, 9.5, 15.5, 0.49999908, 0.75, 6.5, 0.49999908, 21.5, 6.5, 0.49999908, 9.75, -1.25, 0.49999908, 9.75, 8, 0.49999908, 99.5, 8.25, 0.49999908, 21.75, -99.5, 0.49999908, 99.5, 8.5, 0.49999908, 19.5, 15.5, 0.49999908, 19.5, 7.5, 16.5, 20.5, 16.5, 16.5, 20.5, 17.25, 0.49999908, 21.75, 15.75, 0.49999908, 21.75, 16, 0.49999908, 99.5, 17.75, 0.49999908, 21.25, 99.5, 0.49999908, 99.5)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 4), PackedInt32Array(2, 4, 3), PackedInt32Array(3, 5, 2), PackedInt32Array(8, 7, 6), PackedInt32Array(8, 6, 9), PackedInt32Array(9, 6, 5), PackedInt32Array(9, 5, 10), PackedInt32Array(10, 5, 11), PackedInt32Array(11, 5, 3), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 15), PackedInt32Array(15, 12, 11), PackedInt32Array(12, 10, 11), PackedInt32Array(7, 8, 16), PackedInt32Array(16, 17, 7), PackedInt32Array(7, 17, 18), PackedInt32Array(17, 13, 18), PackedInt32Array(18, 13, 14), PackedInt32Array(18, 14, 19), PackedInt32Array(23, 22, 20), PackedInt32Array(20, 22, 21), PackedInt32Array(20, 24, 23), PackedInt32Array(23, 24, 1), PackedInt32Array(1, 24, 25), PackedInt32Array(1, 25, 0), PackedInt32Array(29, 28, 26), PackedInt32Array(26, 28, 27), PackedInt32Array(32, 31, 30), PackedInt32Array(30, 26, 27), PackedInt32Array(27, 33, 30), PackedInt32Array(30, 33, 32), PackedInt32Array(22, 35, 21), PackedInt32Array(21, 35, 34), PackedInt32Array(36, 34, 35), PackedInt32Array(38, 37, 36), PackedInt32Array(35, 39, 36), PackedInt32Array(36, 39, 38), PackedInt32Array(42, 41, 40), PackedInt32Array(40, 44, 43), PackedInt32Array(42, 40, 43), PackedInt32Array(42, 43, 24), PackedInt32Array(24, 43, 25), PackedInt32Array(25, 43, 45), PackedInt32Array(47, 46, 38), PackedInt32Array(38, 46, 37), PackedInt32Array(49, 48, 32), PackedInt32Array(32, 48, 31), PackedInt32Array(52, 51, 50), PackedInt32Array(50, 53, 52), PackedInt32Array(52, 53, 54), PackedInt32Array(54, 53, 19), PackedInt32Array(53, 18, 19), PackedInt32Array(44, 51, 43), PackedInt32Array(43, 51, 52)]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7nx3f"]
 friction = 0.81
@@ -38,22 +44,23 @@ shadow_enabled = true
 
 [node name="Player" parent="." unique_id=2048335322 instance=ExtResource("1_1pjjk")]
 
-[node name="Ground" type="StaticBody3D" parent="." unique_id=1691685811]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1823409138]
+navigation_mesh = SubResource("NavigationMesh_cy3g0")
+
+[node name="Ground" type="StaticBody3D" parent="NavigationRegion3D" unique_id=1691685811]
 collision_mask = 23
 physics_material_override = SubResource("PhysicsMaterial_7nx3f")
 
-[node name="GroundMesh" type="MeshInstance3D" parent="Ground" unique_id=2775688]
+[node name="GroundMesh" type="MeshInstance3D" parent="NavigationRegion3D/Ground" unique_id=2775688]
 material_override = ExtResource("2_lju75")
 mesh = SubResource("PlaneMesh_u4j04")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=132425924]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ground" unique_id=132425924]
 shape = SubResource("WorldBoundaryShape3D_64cxu")
 
-[node name="Balloon" parent="Ground" unique_id=250776027 instance=ExtResource("3_cy3g0")]
+[node name="Balloon" parent="NavigationRegion3D/Ground" unique_id=250776027 instance=ExtResource("3_cy3g0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.31008, 0.5, -4.1042886)
 gravity_scale = -0.5
-
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1823409138]
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="NavigationRegion3D" unique_id=1473286036]
 material_override = ExtResource("2_lju75")
@@ -73,3 +80,13 @@ depth = 3.5
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=2146446926]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 0.5)
+
+[node name="Enemy" parent="." unique_id=1044503888 instance=ExtResource("4_lju75")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.215954, 0.2853408, 14.653442)
+
+[node name="GameMasterComponent" type="Node" parent="." unique_id=673420170 node_paths=PackedStringArray("player")]
+script = ExtResource("5_cy3g0")
+player = NodePath("../Player")
+metadata/_custom_type_script = "uid://heivlku125oi"
+
+[connection signal="player_requested" from="Enemy" to="GameMasterComponent" method="_on_player_requested"]

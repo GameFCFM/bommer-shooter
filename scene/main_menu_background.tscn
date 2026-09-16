@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://bqv0q7jeoyi1d"]
+
+[ext_resource type="Material" uid="uid://dhmvvjxkhm5hi" path="res://resource/grid_dark.tres" id="1_xf3fv"]
+[ext_resource type="PackedScene" uid="uid://b3ks2q0mdbxtf" path="res://scene/balloon.tscn" id="2_ytf44"]
+[ext_resource type="PackedScene" uid="uid://c405if4ygopwc" path="res://scene/enemy.tscn" id="3_m3wvv"]
+[ext_resource type="Script" uid="uid://bemggpxh1g2g6" path="res://script/transform_component.gd" id="4_ytf44"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xf3fv"]
+sky_top_color = Color(0.39535925, 0.33932814, 0.9063459, 1)
+sky_horizon_color = Color(0.6201626, 0.55956423, 0.6913051, 1)
+ground_bottom_color = Color(0.294689, 0.10832661, 0.06827234, 1)
+ground_horizon_color = Color(0.6201626, 0.55956423, 0.6913051, 1)
+
+[sub_resource type="Sky" id="Sky_ytf44"]
+sky_material = SubResource("ProceduralSkyMaterial_xf3fv")
+
+[sub_resource type="Environment" id="Environment_m3wvv"]
+background_mode = 2
+sky = SubResource("Sky_ytf44")
+glow_enabled = true
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_a1c0g"]
+friction = 0.81
+rough = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e6thf"]
+size = Vector2(200, 200)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_jmr8h"]
+
+[node name="MainMenuBackground" type="Node3D" unique_id=1441899441]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=648723174]
+environment = SubResource("Environment_m3wvv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1429902981]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=965580049]
+collision_mask = 23
+physics_material_override = SubResource("PhysicsMaterial_a1c0g")
+
+[node name="GroundMesh" type="MeshInstance3D" parent="Ground" unique_id=121209893]
+material_override = ExtResource("1_xf3fv")
+mesh = SubResource("PlaneMesh_e6thf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=2079172794]
+shape = SubResource("WorldBoundaryShape3D_jmr8h")
+
+[node name="Balloon" parent="Ground" unique_id=250776027 instance=ExtResource("2_ytf44")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.31008, 0.5, -4.1042886)
+gravity_scale = -0.5
+
+[node name="Enemy" parent="." unique_id=1044503888 instance=ExtResource("3_m3wvv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39999795, 0.035340905, -5.7515755)
+
+[node name="Enemy2" parent="." unique_id=1647427031 instance=ExtResource("3_m3wvv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8661385, 0.035340786, -5.673626)
+
+[node name="Enemy3" parent="." unique_id=140475568 instance=ExtResource("3_m3wvv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.242034, 0.035340786, -4.6769066)
+
+[node name="CameraPivot" type="Marker3D" parent="." unique_id=1338917346]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39999795, 0.035340905, -5.7515755)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=1301587281]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39999795, 0.9646591, 5.7515755)
+
+[node name="TransformComponent" type="Node" parent="CameraPivot" unique_id=610203308]
+script = ExtResource("4_ytf44")
+metadata/_custom_type_script = "uid://bemggpxh1g2g6"

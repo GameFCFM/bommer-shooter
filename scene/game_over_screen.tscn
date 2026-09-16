@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://c3tnlh77k5qi1"]
+
+[ext_resource type="Theme" uid="uid://dht1gvo864c8h" path="res://resource/bommer_theme.tres" id="1_c0347"]
+[ext_resource type="Script" uid="uid://cflni1y7bph7u" path="res://script/game_over_screen.gd" id="2_qhku3"]
+
+[sub_resource type="Gradient" id="Gradient_3ugjq"]
+offsets = PackedFloat32Array(0, 0.5177665, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.6878128, 0.41640314, 0.57772166, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qhku3"]
+gradient = SubResource("Gradient_3ugjq")
+fill_to = Vector2(0.87606835, 0.8717949)
+
+[node name="GameOverScreen" type="Control" unique_id=1778712970]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_c0347")
+script = ExtResource("2_qhku3")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1943510437]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_qhku3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1451235185]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.5
+offset_top = -59.0
+offset_right = 93.5
+offset_bottom = 59.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="VBoxContainer" unique_id=1025527170]
+layout_mode = 2
+
+[node name="GameOverTitle" type="RichTextLabel" parent="VBoxContainer/Control" unique_id=409572980]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -98.5
+offset_top = -34.0
+offset_right = 98.5
+grow_horizontal = 2
+grow_vertical = 0
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -132)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/normal_font_size = 78
+bbcode_enabled = true
+text = "[shake][color=#FF00FF]Game Over[color=#FF00FF]"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="Restart" type="Button" parent="VBoxContainer" unique_id=708129130]
+layout_mode = 2
+text = "Reiniciar"
+
+[node name="Menu" type="Button" parent="VBoxContainer" unique_id=277527630]
+layout_mode = 2
+text = "Menu Principal"
+
+[connection signal="pressed" from="VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="VBoxContainer/Menu" to="." method="_on_menu_pressed"]
