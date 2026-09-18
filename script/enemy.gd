@@ -1,7 +1,7 @@
 class_name Enemy
 extends CharacterBody3D
 
-enum State {IDLE, COMBAT, DEATH, ATTACK}
+enum State {IDLE, COMBAT, DEATH, ATTACK, SUCCESS}
 
 signal player_requested
 
@@ -30,7 +30,7 @@ func _ready() -> void:
 	await get_tree().physics_frame
 	player_requested.emit(self)
 	animation_player.play("idle")
-	
+	EventBus.player_died.connect(_on_player_died)
 	
 func _physics_process(delta: float) -> void:
 	match current_state:
@@ -110,3 +110,8 @@ func _on_refresh_path_timeout() -> void:
 func _on_attack_body_entered(body: Node3D) -> void:
 	if body.has_method("take_damage"):
 		body.take_damage(5)
+
+
+func _on_player_died() -> void:
+	current_state =State.SUCCESS
+	animation_player.play("idle")

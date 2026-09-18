@@ -1,12 +1,12 @@
 extends CharacterBody3D
 
+enum State {IDLE, ALIVE, DEAD}
+
 const IMPACT_MESH = preload("uid://dno72hdvohili")
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
-var last_mouse_position: Vector2i
-var mouse_sens: float = 0.01
 @export_range(0, 100, 1) var health: float = 50
 @export var max_health: float = 100
 @export var bullet_damage: float = 5
@@ -14,6 +14,11 @@ var mouse_sens: float = 0.01
 @export var cartridges: int = 5
 @export var cartridge_size: int = 20
 @export var max_ammo: int = 100
+
+var last_mouse_position: Vector2i
+var mouse_sens: float = 0.01
+var current_state: State = State.IDLE
+
 
 @onready var fpp_camera: Camera3D = $FPPCamera
 @onready var shot_sound: AudioStreamPlayer3D = $ShotSound
@@ -23,11 +28,11 @@ var mouse_sens: float = 0.01
 
 
 
-
 func _ready() -> void:
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CAPTURED)
 	update_ammo()
 	update_health_label()
+	current_state = State.ALIVE
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -44,22 +49,31 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+	
+	match current_state:
+		State.IDLE:
+			pass
+		State.ALIVE:
+			# Handle jump.
+			if Input.is_action_just_pressed("jump") and is_on_floor():
+				velocity.y = JUMP_VELOCITY
 
-	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
 
+			# Get the input direction and handle the movement/deceleration.
+			# As good practice, you should replace UI actions with custom gameplay actions.
+			var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+			var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+			if direction:
+				velocity.x = direction.x * SPEED
+				velocity.z = direction.z * SPEED
+			else:
+				velocity.x = move_toward(velocity.x, 0, SPEED)
+				velocity.z = move_toward(velocity.z, 0, SPEED)
+			
+		State.DEAD:
+			pass
+	
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
 	
@@ -118,6 +132,8 @@ func update_health_label() -> void:
 func die() -> void:
 	#TODO: Criar estado de morte do player
 	EventBus.player_died.emit()
+	current_state = State.DEAD
+	set_process_unhandled_input(false)
 	
 func update_ammo() -> void:
 	print(ammo, " / ", cartridges * cartridge_size)

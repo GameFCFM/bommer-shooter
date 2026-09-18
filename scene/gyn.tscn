@@ -127,11 +127,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.244599, -0.074607566, -5.
 
 [node name="Enemy" parent="." unique_id=1044503888 instance=ExtResource("9_bgu6j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.643423, 0, 5.081998)
-hp = 10
 
 [node name="Enemy2" parent="." unique_id=1777400268 instance=ExtResource("9_bgu6j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.356577, 0, -2.9180021)
-hp = 10
 
 [node name="GameMasterComponent" type="Node" parent="." unique_id=232765934 node_paths=PackedStringArray("player")]
 script = ExtResource("10_wy3a3")

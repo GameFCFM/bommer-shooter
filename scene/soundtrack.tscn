@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cnkcgb6pw3q1f"]
+
+[ext_resource type="AudioStream" uid="uid://gjskafdtix66" path="res://asset/audio/Juhani Junkala [Chiptune Adventures] OGG/Juhani Junkala [Chiptune Adventures] 1. Stage 1.ogg" id="1_nr1y7"]
+[ext_resource type="Script" uid="uid://d3x7bs23hsu8a" path="res://script/soundtrack.gd" id="2_s1yh6"]
+
+[node name="Soundtrack" type="AudioStreamPlayer" unique_id=1301794210]
+stream = ExtResource("1_nr1y7")
+autoplay = true
+bus = &"Soundtrack"
+parameters/looping = true
+script = ExtResource("2_s1yh6")

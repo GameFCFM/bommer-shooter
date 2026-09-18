@@ -14,3 +14,4 @@ func _on_menu_pressed() -> void:
 
 func _on_player_died() -> void:
 	show()
+	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
