@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://biee55g7iugg6"]
+
+[ext_resource type="Script" uid="uid://d0ximkc8hp0fo" path="res://script/breakable_wall.gd" id="1_dhtgu"]
+[ext_resource type="PackedScene" uid="uid://djhko7rpvr76f" path="res://asset/BreakableWall.glb" id="2_sgc5l"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0yc80"]
+size = Vector3(4.4144897, 4.240982, 0.77197266)
+
+[node name="BreakableWall" type="Node3D" unique_id=298055625]
+script = ExtResource("1_dhtgu")
+
+[node name="BreakableWall2" parent="." unique_id=1635623300 instance=ExtResource("2_sgc5l")]
+
+[node name="BreakSensor" type="Area3D" parent="." unique_id=815442865]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BreakSensor" unique_id=115999970]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0016174, 2.0510025, -0.18481445)
+shape = SubResource("BoxShape3D_0yc80")

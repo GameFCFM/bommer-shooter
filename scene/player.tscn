@@ -38,6 +38,11 @@ emission_box_extents = Vector3(600, 400, 1)
 gravity = Vector3(0, -98, 0)
 alpha_curve = SubResource("CurveTexture_wkpy8")
 
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ct4mp"]
+gradient = SubResource("Gradient_s4jxa")
+fill = 1
+fill_from = Vector2(0.4957265, 0.52991456)
+
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bu2mq"]
 streams_count = 1
 stream_0/stream = ExtResource("3_fvtld")
@@ -95,12 +100,23 @@ autowrap_mode = 0
 
 [node name="HealFeedBackRect" type="TextureRect" parent="CanvasLayer" unique_id=273633748]
 unique_name_in_owner = true
-offset_right = 1036.0
+offset_right = 1148.0
 offset_bottom = 647.0
 texture = SubResource("GradientTexture2D_wkpy8")
 
 [node name="HealParticles" type="GPUParticles2D" parent="CanvasLayer/HealFeedBackRect" unique_id=1645426309]
 unique_name_in_owner = true
+position = Vector2(536, 311)
+amount = 64
+texture = ExtResource("3_ct4mp")
+process_material = SubResource("ParticleProcessMaterial_0yc80")
+
+[node name="HealFeedBackRect2" type="TextureRect" parent="CanvasLayer" unique_id=550071664]
+offset_right = 1148.0
+offset_bottom = 647.0
+texture = SubResource("GradientTexture2D_ct4mp")
+
+[node name="HealParticles" type="GPUParticles2D" parent="CanvasLayer/HealFeedBackRect2" unique_id=514954594]
 position = Vector2(536, 311)
 amount = 64
 texture = ExtResource("3_ct4mp")

@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://du035gg3fon66"]
 
+[ext_resource type="PackedScene" uid="uid://biee55g7iugg6" path="res://scene/breakable_wall.tscn" id="1_5nacg"]
 [ext_resource type="PackedScene" uid="uid://bie3ku6i1fn1q" path="res://scene/player.tscn" id="1_bgu6j"]
 [ext_resource type="PackedScene" uid="uid://b3ks2q0mdbxtf" path="res://scene/balloon.tscn" id="3_cbtax"]
 [ext_resource type="PackedScene" uid="uid://bor25h8tahv3g" path="res://scene/barrel.tscn" id="3_kkyl4"]
@@ -51,6 +52,9 @@ environment = SubResource("Environment_rev0u")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=530899516]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
+
+[node name="BreakableWall" parent="." unique_id=298055625 instance=ExtResource("1_5nacg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033345222, -7.435973)
 
 [node name="Player" parent="." unique_id=2048335322 instance=ExtResource("1_bgu6j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8710313, 0)
@@ -211,7 +215,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.986, 1, 0)
 radius = 0.9506663
 
 [node name="CSGCorridorOutside" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=1068779550]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.870999, 1.9383615, -2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.870999, 1.9383615, -1.2424779)
 size = Vector3(4, 4, 7)
 
 [node name="CSGCorridorSub" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=75184861]

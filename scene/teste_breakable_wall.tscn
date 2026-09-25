@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://vs75euen4y2h"]
+
+[ext_resource type="PackedScene" uid="uid://dgmxc72htqpf0" path="res://asset/TesteBreakableWall.glb" id="1_x40fh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0yc80"]
+size = Vector3(0.63549805, 5.885742, 5.326935)
+
+[node name="testeBreakableWall" type="Node3D" unique_id=127320261]
+
+[node name="TesteBreakableWall2" parent="." unique_id=791978202 instance=ExtResource("1_x40fh")]
+
+[node name="Area3D" type="Area3D" parent="TesteBreakableWall2" unique_id=386535438]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TesteBreakableWall2/Area3D" unique_id=815957495]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.041137695, 2.442871, 2.4601288)
+shape = SubResource("BoxShape3D_0yc80")
