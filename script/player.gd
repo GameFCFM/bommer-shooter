@@ -1,9 +1,7 @@
 extends CharacterBody3D
 
 enum State {IDLE, ALIVE, DEAD}
-
 const IMPACT_MESH = preload("uid://dno72hdvohili")
-
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
@@ -19,15 +17,18 @@ var last_mouse_position: Vector2i
 var mouse_sens: float = 0.01
 var current_state: State = State.IDLE
 
-
-
 @onready var fpp_camera: Camera3D = $FPPCamera
 @onready var shot_sound: AudioStreamPlayer3D = $ShotSound
 @onready var ammo_label: RichTextLabel = %AmmoLabel
 @onready var health_label: Label = %HealthLabel
 @onready var health_bar: ProgressBar = %HealthBar
-@onready var heal_feed_back_rect: TextureRect = %HealFeedBackRect
+@onready var heal_feedback_rect: TextureRect = %HealFeedbackRect
 @onready var heal_particles: GPUParticles2D = %HealParticles
+@onready var ammo_particles: GPUParticles2D = %AmmoParticles
+@onready var ammo_feedback_rect: TextureRect = %AmmoFeedbackRect
+@onready var damage_feedback_rect: TextureRect = $CanvasLayer/DamageFeedbackRect
+@onready var raycast: RayCast3D = %RayCast3D
+
 
 
 
@@ -36,9 +37,11 @@ func _ready() -> void:
 	update_ammo()
 	update_health_label()
 	current_state = State.ALIVE
-	
-	heal_feed_back_rect.hide()
+	heal_feedback_rect.hide()
 	heal_particles.hide()
+	ammo_feedback_rect.hide()
+	ammo_particles.hide()
+	damage_feedback_rect.hide()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -76,6 +79,14 @@ func _physics_process(delta: float) -> void:
 				velocity.x = move_toward(velocity.x, 0, SPEED)
 				velocity.z = move_toward(velocity.z, 0, SPEED)
 			
+			if raycast.is_colliding() and Input.is_action_just_pressed("interact"):
+				EventBus.interacted.emit(self, raycast.get_collider())
+			if raycast.is_colliding():
+				print(raycast.get_collider())
+				EventBus.interactable_entered.emit(self, raycast.get_collider())
+			else :
+				EventBus.intereactable_exited.emit(self, null)
+				
 		State.DEAD:
 			pass
 	
@@ -126,6 +137,7 @@ func take_damage(amount: float) -> void:
 	#print("HP: ", health)
 	health -= amount
 	update_health_label()
+	damage_feedback()
 	if health <= 0:
 		die()
 		
@@ -158,23 +170,52 @@ func reload () -> void:
 	ammo = cartridge_size
 	update_ammo()
 	
+	
 
 
 func get_message(message: Message) -> void:
 	if "ammo" in message.content:
 		cartridges += message.content["ammo"]
 		update_ammo()
+		ammo_feedback()
 	if "health" in message.content:
 		health+= message.content["health"]
 		update_health_label()
 		healed_feedback()
-
+		
 func healed_feedback() -> void:
 	var tween: Tween = create_tween()
 	#tween.set_parallel(true)
-	heal_feed_back_rect.show()
+	
+	heal_feedback_rect.show()
 	heal_particles.show()
 	
-	tween.tween_property(heal_feed_back_rect,"modulate:a",1.0,1.0).from(0.0)
-	tween.tween_property(heal_feed_back_rect,"modulate:a",0.0,1.0)
-	tween.tween_callback(heal_feed_back_rect.hide)
+	tween.tween_property(heal_feedback_rect, "modulate:a", 1.0, 1.0).from(0.0)
+	tween.tween_property(heal_feedback_rect,"modulate:a", 0.0, 1.0)
+	tween.tween_callback(heal_feedback_rect.hide)
+	
+func ammo_feedback() -> void:
+	var tween: Tween = create_tween()
+	#tween.set_parallel(true)
+	
+	ammo_feedback_rect.show()
+	ammo_particles.show()
+	
+	tween.tween_property(ammo_feedback_rect, "modulate:a", 1.0, 1.0).from(0.0)
+	tween.tween_property(ammo_feedback_rect,"modulate:a", 0.0, 1.0)
+	tween.tween_callback(ammo_feedback_rect.hide)
+	
+func damage_feedback() -> void:
+	var tween: Tween = create_tween()
+	#tween.set_parallel(true)
+	
+	damage_feedback_rect.show()
+	
+	
+	tween.tween_property(damage_feedback_rect, "modulate:a", 1.0, 0.2).from(0.0)
+	tween.tween_property(damage_feedback_rect,"modulate:a", 0.0, 0.2)
+	tween.tween_callback(damage_feedback_rect.hide)
+
+
+func _on_node_pressed() -> void:
+	pass # Replace with function body.

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5kf3t73drf21"
-path="res://.godot/imported/heal_sprite.png-2d2fdd3a2566c3079e556bf482a86ac6.ctex"
+uid="uid://4tjjre4ljvg5"
+path="res://.godot/imported/ammo_sprite.png-faaec79cf2e72d21baa1cae39f9b1231.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://asset/heal_sprite.png"
-dest_files=["res://.godot/imported/heal_sprite.png-2d2fdd3a2566c3079e556bf482a86ac6.ctex"]
+source_file="res://asset/ammo_sprite.png"
+dest_files=["res://.godot/imported/ammo_sprite.png-faaec79cf2e72d21baa1cae39f9b1231.ctex"]
 
 [params]
 

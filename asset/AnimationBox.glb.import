@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://l1ipsxguphct"
-path="res://.godot/imported/BreakableWallPieces.glb-8ca8ed958a02420155499c857fb8d9ee.scn"
+uid="uid://cijgtyqc4oebc"
+path="res://.godot/imported/AnimationBox.glb-b524cdcf78c8d929c90c65cb44a13144.scn"
 
 [deps]
 
-source_file="res://asset/BreakableWallPieces.glb"
-dest_files=["res://.godot/imported/BreakableWallPieces.glb-8ca8ed958a02420155499c857fb8d9ee.scn"]
+source_file="res://asset/AnimationBox.glb"
+dest_files=["res://.godot/imported/AnimationBox.glb-b524cdcf78c8d929c90c65cb44a13144.scn"]
 
 [params]
 
